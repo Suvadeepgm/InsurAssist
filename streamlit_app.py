@@ -50,7 +50,8 @@ def create_ui():
         
         prompt = f"Based on the provided name {name}, age {age} and Gender {gender}, smoking history {smoking_history}, Occupation {occupation}, generate a brief profile summarizing key details that would be relevant for selecting a life insurance policy."
         response = query({"inputs": prompt})
-        initial_profile = response[0]['generated_text'] if 'generated_text' in response[0] else response
+        #initial_profile = response[0]['generated_text'] if 'generated_text' in response[0] else response
+        initial_profile=response
         st.text_area('Initial Profile', height=550, value=initial_profile, disabled=True)
 
         insurance_type = st.selectbox('Select the type of insurance you would like to enquire about:', ('', 'Life', 'Health', 'Automobile', 'Home'))
