@@ -62,8 +62,8 @@ def create_ui():
         st.text_area('Initial Profile', height=550, value=initial_profile, disabled=True)
 
         insurance_type = st.selectbox('Select the type of insurance you would like to enquire about:', ('', 'Life', 'Health', 'Automobile', 'Home'))
-
-        if insurance_type == ''Life'':
+        submitted = st.button('Submit', key=2)
+        if insurance_type == 'Life':
             prompt = f"Given the profile: {initial_profile} and the requested insurance type {insurance_type}, suggest 2-3 specific policy options of John Hancock that could be a good fit, along with a brief explanation for each recommendation. Give the names of the plans as well."
             policy_recommendation = get_response(prompt)
             st.text_area('Policy Recommendation', height=550, value=policy_recommendation, disabled=True)
