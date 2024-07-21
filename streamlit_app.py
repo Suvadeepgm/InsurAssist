@@ -61,6 +61,10 @@ def create_ui():
         initial_profile = get_response(prompt)
         st.text_area('Initial Profile', height=550, value=initial_profile, disabled=True)
 
+
+        if "insurance_type" not in st.session_state:
+            st.session_state.insurance_type = ''
+        
         insurance_type = st.selectbox('Select the type of insurance you would like to enquire about:', ('', 'Life', 'Health', 'Automobile', 'Home'))
         submitted = st.button('Submit', key=2)
         if insurance_type == 'Life':
