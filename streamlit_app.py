@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-Nemo-Base-2407"
+API_URL = "https://api-inference.huggingface.co/models/HuggingFaceTB/SmolLM-1.7B"
 headers = {"Authorization": "Bearer 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"}
 
 def query(payload):
