@@ -63,19 +63,21 @@ def create_ui():
 
 
         if "insurance_type" not in st.session_state:
-            st.session_state.insurance_type = ''
+            st.session_state.insurance_type = True
         
         insurance_type = st.selectbox('Select the type of insurance you would like to enquire about:', ('', 'Life', 'Health', 'Automobile', 'Home'))
+        print(insurance_type)
         submitted = st.button('Submit', key=2)
-        if insurance_type == 'Life':
-            prompt = f"Given the profile: {initial_profile} and the requested insurance type {insurance_type}, suggest 2-3 specific policy options of John Hancock that could be a good fit, along with a brief explanation for each recommendation. Give the names of the plans as well."
-            policy_recommendation = get_response(prompt)
-            st.text_area('Policy Recommendation', height=550, value=policy_recommendation, disabled=True)
-
-            quote_yes_no = st.selectbox('Do you want to see the approximate quotes for the above policies?', ('', 'Yes', 'No'))
-            if quote_yes_no == 'Yes':
-                prompt = f"Given the profile: {initial_profile} and the Policy Recommendation {policy_recommendation}, suggest a Quote for the recommended policies."
-                quote_recommendation = get_response(prompt)
-                st.text_area('Approximate Quotes', height=550, value=quote_recommendation, disabled=True)
+        if st.session_state.insurance_type = True:
+            if insurance_type == 'Life':
+                prompt = f"Given the profile: {initial_profile} and the requested insurance type {insurance_type}, suggest 2-3 specific policy options of John Hancock that could be a good fit, along with a brief explanation for each recommendation. Give the names of the plans as well."
+                policy_recommendation = get_response(prompt)
+                st.text_area('Policy Recommendation', height=550, value=policy_recommendation, disabled=True)
+    
+                quote_yes_no = st.selectbox('Do you want to see the approximate quotes for the above policies?', ('', 'Yes', 'No'))
+                if quote_yes_no == 'Yes':
+                    prompt = f"Given the profile: {initial_profile} and the Policy Recommendation {policy_recommendation}, suggest a Quote for the recommended policies."
+                    quote_recommendation = get_response(prompt)
+                    st.text_area('Approximate Quotes', height=550, value=quote_recommendation, disabled=True)
 
 create_ui()
