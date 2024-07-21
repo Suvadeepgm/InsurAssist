@@ -1,17 +1,26 @@
 import streamlit as st
-import requests
+from huggingface_hub import InferenceClient
 
-API_URL = "https://api-inference.huggingface.co/models/HuggingFaceTB/SmolLM-1.7B"
-headers = {"Authorization": "Bearer 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"}
+# Initialize the InferenceClient
+client = InferenceClient(
+    model="meta-llama/Meta-Llama-3-8B-Instruct",
+    token="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"
+)
 
-def query(payload):
-    response = requests.post(API_URL, headers=headers, json=payload)
-    return response.json()
+def get_response(prompt):
+    response_text = ""
+    for message in client.chat_completion(
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=500,
+        stream=True
+    ):
+        response_text += message.choices[0].delta.content
+    return response_text
 
 def setup_sideBar():
     st.sidebar.header('About')
     st.sidebar.markdown("""
-        App is created using [Hugging Face](https://huggingface.co/) Mistral-Nemo-Base-2407 model and 🎈[Streamlit](https://streamlit.io/).
+        App is created using [Hugging Face](https://huggingface.co/) Meta-Llama-3-8B-Instruct model and 🎈[Streamlit](https://streamlit.io/).
         """)
     st.sidebar.markdown("""
         Developed by [Suvadeep Datta](https://www.linkedin.com/in/connectsuvadeep/)
@@ -49,24 +58,20 @@ def create_ui():
             return
         
         prompt = f"Based on the provided name {name}, age {age} and Gender {gender}, smoking history {smoking_history}, Occupation {occupation}, generate a brief profile summarizing key details that would be relevant for selecting a life insurance policy."
-        response = query({"inputs": prompt})
-        #initial_profile = response[0]['generated_text'] if 'generated_text' in response[0] else response
-        initial_profile=response
+        initial_profile = get_response(prompt)
         st.text_area('Initial Profile', height=550, value=initial_profile, disabled=True)
 
         insurance_type = st.selectbox('Select the type of insurance you would like to enquire about:', ('', 'Life', 'Health', 'Automobile', 'Home'))
 
         if insurance_type == 'Life':
             prompt = f"Given the profile: {initial_profile} and the requested insurance type {insurance_type}, suggest 2-3 specific policy options of John Hancock that could be a good fit, along with a brief explanation for each recommendation. Give the names of the plans as well."
-            response = query({"inputs": prompt})
-            policy_recommendation = response[0]['generated_text'] if 'generated_text' in response[0] else response
+            policy_recommendation = get_response(prompt)
             st.text_area('Policy Recommendation', height=550, value=policy_recommendation, disabled=True)
 
             quote_yes_no = st.selectbox('Do you want to see the approximate quotes for the above policies?', ('', 'Yes', 'No'))
             if quote_yes_no == 'Yes':
                 prompt = f"Given the profile: {initial_profile} and the Policy Recommendation {policy_recommendation}, suggest a Quote for the recommended policies."
-                response = query({"inputs": prompt})
-                quote_recommendation = response[0]['generated_text'] if 'generated_text' in response[0] else response
+                quote_recommendation = get_response(prompt)
                 st.text_area('Approximate Quotes', height=550, value=quote_recommendation, disabled=True)
 
 create_ui()
