@@ -66,7 +66,8 @@ def create_ui():
         #st.session_state.show_insurance_type = True
     
     #if "show_insurance_type" in st.session_state and st.session_state.show_insurance_type:
-        insurance_type = st.selectbox('Select the type of insurance you would like to enquire about:', ('', 'Endowment Plans', 'Whole Life', 'Money Back', 'Term Assurance', 'Riders' ), key="insurance_type")
+        #insurance_type = st.selectbox('Select the type of insurance you would like to enquire about:', ('', 'Endowment Plans', 'Whole Life', 'Money Back', 'Term Assurance', 'Riders' ), key="insurance_type")
+        name = st.text_area('Write your name', height=50, value="", max_chars=100, key="name")
         submitted1 = st.button('Submit', key="submit1")
         if submitted1:
             #st.session_state.insurance_type = insurance_type
