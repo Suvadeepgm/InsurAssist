@@ -67,8 +67,8 @@ def create_ui():
     
     #if "show_insurance_type" in st.session_state and st.session_state.show_insurance_type:
         insurance_type = st.selectbox('Select the type of insurance you would like to enquire about:', ('', 'Endowment Plans', 'Whole Life', 'Money Back', 'Term Assurance', 'Riders' ), key="insurance_type")
-        
-        if insurance_type:
+        submitted1 = st.button('Submit', key="submit1")
+        if submitted1:
             #st.session_state.insurance_type = insurance_type
             prompt = f"Given the profile: {st.session_state.initial_profile} and the requested insurance type {insurance_type}, suggest 2-3 specific policy options from the website https://licindia.in/insurance-plan that could be a good fit, along with a brief explanation for each recommendation. Give the names of the plans as well. Only refer to the website https://licindia.in/insurance-plan only"
             policy_recommendation = get_response(prompt)
