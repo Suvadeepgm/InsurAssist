@@ -47,7 +47,7 @@ def create_ui():
     age = st.text_area('Write your age', height=50, value="", max_chars=100, key="age")
     gender = st.text_area('Write your gender', height=50, value="", max_chars=100, key="gender")
     occupation = st.text_area('What is your employment status?', height=50, value="", max_chars=1000, key="occupation")
-    smoking_history = st.selectbox('Are you a smoker or a non-smoker?', ('', 'Smoker', 'Non-Smoker'), key="smoking_history")
+    #smoking_history = st.selectbox('Are you a smoker or a non-smoker?', ('', 'Smoker', 'Non-Smoker'), key="smoking_history")
 
     submitted = st.button('Submit', key="submit")
 
@@ -56,7 +56,8 @@ def create_ui():
             st.warning('Input needs to have at least one character.')
             return
         
-        prompt = f"Based on the provided name {name}, age {age} and Gender {gender}, smoking history {smoking_history}, Occupation {occupation}, generate a brief profile summarizing key details that would be relevant for selecting a John Hancock life insurance policy and suggest some John Hancock policies."
+        #prompt = f"Based on the provided name {name}, age {age} and Gender {gender}, smoking history {smoking_history}, Occupation {occupation}, generate a brief profile summarizing key details that would be relevant for selecting a John Hancock life insurance policy and suggest some John Hancock policies."
+        prompt = f"Based on the provided name {name}, age {age} and Gender {gender}, Occupation {occupation}, generate a brief profile summarizing key details that would be relevant for selecting a LIC life insurance policy and suggest some LIC policies."
         initial_profile = get_response(prompt)
         st.text_area('Initial Profile', height=550, value=initial_profile, disabled=True, key="initial_profile")
 
