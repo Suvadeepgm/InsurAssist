@@ -59,7 +59,7 @@ def create_ui():
         #prompt = f"Based on the provided name {name}, age {age} and Gender {gender}, smoking history {smoking_history}, Occupation {occupation}, generate a brief profile summarizing key details that would be relevant for selecting a John Hancock life insurance policy and suggest some John Hancock policies."
         prompt = f"Based on the provided name {name}, age {age} and Gender {gender}, Occupation {occupation}, generate a brief profile summarizing key details that would be relevant for selecting a LIC life insurance policy and suggest relevent LIC policies and their corresponding plan no. from the website https://licindia.in/insurance-plan only. Don't refer to any other information from any other source "
         initial_profile = get_response(prompt)
-        st.text(initial_profile)
+        st.body(initial_profile)
 
         #st.session_state.initial_profile = initial_profile
 
