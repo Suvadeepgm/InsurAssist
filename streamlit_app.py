@@ -56,7 +56,7 @@ def create_ui():
             st.warning('Input needs to have at least one character.')
             return
         
-        prompt = f"Based on the provided name {name}, age {age} and Gender {gender}, smoking history {smoking_history}, Occupation {occupation}, generate a brief profile summarizing key details that would be relevant for selecting a life insurance policy."
+        prompt = f"Based on the provided name {name}, age {age} and Gender {gender}, smoking history {smoking_history}, Occupation {occupation}, generate a brief profile summarizing key details that would be relevant for selecting a John Hancock life insurance policy and suggest some John Hancock policies."
         initial_profile = get_response(prompt)
         st.text_area('Initial Profile', height=550, value=initial_profile, disabled=True, key="initial_profile")
 
